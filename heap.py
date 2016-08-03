@@ -43,32 +43,19 @@ class Heap:
 		self.downheap()
 		return m 
 
-	def replace_key(self, k, k2):
-		pass 
-		# TODO
 
 	def fast_swap(self, array, i1, i2):
 		array[i1], array[i2] = array[i2], array[i1]
 
 
-def build_heap_from_map(map):
-	pass 
-	# TODO 
+def build_heap_from_map(input_map):
+	heap = Heap()
+	for k,v in input_map.iteritems():
+		n = HeapNode(k, v)
+		heap.insert(n)
+
+	return heap 
 
 
-if __name__ == '__main__':
-	data = [HeapNode(1, 'jackie'), HeapNode(22, 'brad'), HeapNode(13, 'aaron'), HeapNode(4, 'dana'), HeapNode(7, 'mike')]
-	heap = Heap() 
-	for d in data:
-		heap.insert(d)
-	
-	for e in heap.elements:
-		if e is not None:
-			print e.priority
-
-	heap.remove_min()
-
-	for e in heap.elements:
-		if e is not None:
-			print e.priority
+# TODO: write heap unit tests 
 

@@ -178,7 +178,6 @@ def topo_sort(graph):
 	n = len(graph[0])
 
 	def has_incident_edges(graph, x):
-		print "checking for node", x 
 		for e in graph.values():
 			if x in e:
 				return True
@@ -192,10 +191,9 @@ def topo_sort(graph):
 	while not Q.isEmpty():
 		v = Q.dequeue()
 		sort.append(v)
-		incidents = graph[v][:]  # must copy list to remove from graph while iterating
-		for u in incidents:
+		neighbors = graph[v][:]  # must copy list to remove from graph while iterating
+		for u in neighbors:
 			graph[v].remove(u)
-			print graph[v]
 			if not has_incident_edges(graph, u):
 				Q.enqueue(u)
 
