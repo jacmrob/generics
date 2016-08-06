@@ -90,33 +90,35 @@ def radix_sort(array):
 	# average O(nk)  (where k is max # digits)
 	# worst O(nk)
 	# space O(n+k)
+	# only for positive numbers 
 
-	buckets = defaultdict(list)
 	def concat_buckets(b):
 		c = []
-		for i in b.values():
-			c += i
+		for i in range(9):
+			if b.get(i):
+				c += b.get(i)
 		return c 
 
 	max_digits = 1
 	def digits(n):
 		if n != 0:
-			return int(math.log10(abs(n))) + 1 
+			return int(math.log10(n)) + 1 
 		else:
 			return 1 
 
 	i = 1
 	while i <= max_digits:
+		buckets = defaultdict(list)
+
 		for x in array:
 			if digits(x) > max_digits:
 				max_digits = digits(x)
-			d = x % np.power(10, i)
-			print d, "digits"
-			print x 
-			buckets[d].append(x)
-		print buckets 
+
+			s = str(x)
+			d = s[len(s)-i] if len(s) >= i else 0 
+			buckets[int(d)].append(x)
+
 		array = concat_buckets(buckets)
-		print array 
 		i += 1 
 
 	return array 
@@ -205,12 +207,13 @@ def topo_sort(graph):
 
 
 if __name__ == '__main__':
+	# unsorted = [17, 3, 5, 12, 2, 0, -1, 14, 14, -20, 8]
+	# print selection_sort(unsorted)
 	unsorted = [17, 3, 5, 12, 2, 0, -1, 14, 14, -20, 8]
-	print selection_sort(unsorted)
-	unsorted = [17, 3, 5, 12, 2, 0, -1, 14, 14, -20, 8]
-	#print radix_sort(unsorted)
+	unsorted_positive = [17, 3, 5, 12, 2, 0 ,14, 14, 20, 8, 72,1]
+	print radix_sort(unsorted_positive)
 	#print mom_select(unsorted, 7)
 
 	#mock_graph = [[0,0,0], [1,0,0], [0, 1, 0]]
-	mock_graph = {0:[1], 1:[3,4], 2:[], 3:[2], 4:[]}
-	print topo_sort(mock_graph)
+	#mock_graph = {0:[1], 1:[3,4], 2:[], 3:[2], 4:[]}
+	#print topo_sort(mock_graph)
