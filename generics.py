@@ -76,6 +76,17 @@ def bfs(G, r):
 			for child in v.children:
 				q.enqueue(child)
 
+
+def pre_order(node, order):
+	order = []
+	order.append(root)
+	if root.children[0]:
+		pre_order(root.children[0], order)
+	if root.children[1]: 
+		pre_order(root.children[0], order)
+
+	return order 
+
 def atoi(s):
 	sign = 1
 	total = 0
