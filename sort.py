@@ -125,6 +125,7 @@ def radix_sort(array):
 
 
 def mom_select(array, k):
+	# TODO: this is not finished - still buggy 
 	print "K", k 
 	n = len(array)
 	if n <= 1:
@@ -152,7 +153,6 @@ def mom_select(array, k):
 	mini_lists = split_array(array)
 	medians = [sorted(m)[int(math.floor(len(m)/2))] for m in mini_lists]
 	pivot = mom_select(medians, len(medians)/2)[0]
-	print "pivot", pivot 
 
 	l, e, g = [], [], []
 	for x in array:
@@ -173,7 +173,7 @@ def mom_select(array, k):
 
 def topo_sort(graph):
 	# graph represented as an edge list 
-	# O(|V| + |E|)  ]
+	# O(|V| + |E|) 
 
 	Q = Queue()
 	sort = []
@@ -214,6 +214,5 @@ if __name__ == '__main__':
 	print radix_sort(unsorted_positive)
 	print mom_select(unsorted, 7)
 
-	#mock_graph = [[0,0,0], [1,0,0], [0, 1, 0]]
 	#mock_graph = {0:[1], 1:[3,4], 2:[], 3:[2], 4:[]}
 	#print topo_sort(mock_graph)
