@@ -212,7 +212,7 @@ if __name__ == '__main__':
 	unsorted = [17, 3, 5, 12, 2, 0, -1, 14, 14, -20, 8]
 	unsorted_positive = [17, 3, 5, 12, 2, 0 ,14, 14, 20, 8, 72,1]
 	print radix_sort(unsorted_positive)
-	#print mom_select(unsorted, 7)
+	print mom_select(unsorted, 7)
 
 	#mock_graph = [[0,0,0], [1,0,0], [0, 1, 0]]
 	#mock_graph = {0:[1], 1:[3,4], 2:[], 3:[2], 4:[]}
