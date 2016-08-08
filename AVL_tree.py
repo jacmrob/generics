@@ -1,5 +1,3 @@
-
-
 # balance factor of node: left subtree height - right subtree height
 
 class Node:
@@ -39,12 +37,36 @@ class AVL_tree:
 		self.rebalance()
 
 	def rebalance(self):
-		#self.update_balances()
-		#self.update_heights()
 
 		while self.balance < -1 or self.balance > 1:
+
+			# Left subtree is larger than right subtree 
 			if self.balance > 1:
-				if self.node.left.balance < 0 
+
+				# Insert into right subtree of left child
+				if self.node.left.balance < 0:
+					self.node.left.rotate_left()
+					self.update_heights()
+					self.update_balances()
+
+				# insert into left subtree of left child
+				self.rotate_right()
+				self.update_heights()
+				self.update_balances()
+
+			# Right subtree is larger than left subtree 
+			if self.balance < -1:
+
+				# insert into left subtree of right child
+				if self.node.right.balance > 0:
+					self.node.right.rotate_right()
+					self.update_heights()
+					self.update_balances()
+
+				# insert into right subtree of right child
+				self.rotate_left()
+				self.update_heights()
+				self.update_balances()
 
 	def update_balances(self):
 		if self.node:
@@ -66,13 +88,9 @@ class AVL_tree:
 		else:
 			self.height = -1 
 
+	def delete(self, data):
+		pass 
 
 
-		# require single rotation
-		# case 1: insert into left subtree of left child
-		# case 2: insert into right subtree of right child 
-
-		# require double rotation
-		# case 3: insert into right subtree of left child
-		# case 4: insert into left subtree of right child 
-
+if __name__ == '__main__':
+	# do some testing of this shit!!! 

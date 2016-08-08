@@ -54,6 +54,8 @@ class HashTable:
 	Hash table implemented using python lists
 	valid key types are strs and ints 
 	utilizes a universal hash function w/ prime > size of set to hash (n)
+	Insert: O(1), Delete: O(1), lookup O(1)
+	space complexity O(n)
 	'''
 	def __init__(self, n):
 		self.prime = self.get_next_prime(n)
@@ -126,6 +128,14 @@ class Node:
 
 
 class BinaryTree:
+	'''
+	Implementation of a binary tree with numeric data
+	Insert: O(logn) if balanced, O(n) worst case
+	Delete: O(logn) if balanced, O(n) worst case
+	Lookup: O(logn) if balanced, O(n) worst case
+	Space complexity O(n)
+	'''
+
 	def __init__(self):
 		self.node = None
 		self.height = -1 
@@ -183,6 +193,7 @@ def dfs(tree):
 	return visited
 
 def bfs(tree):
+	# O(n)
 	q = Queue()
 	visited = []
 	if tree.node:
@@ -272,20 +283,6 @@ if __name__ == '__main__':
 	#print get_max_profit(descending)
 
 	#print binary_search(sorted(prices), 20)
-
-	tree = BinaryTree()
-	tree.insert(5)
-	tree.insert(2)
-	tree.insert(10)
-	tree.insert(7)
-	tree.insert(11)
-	tree.insert(100)
-	print tree.get_height()
-	print in_order(tree)
-	print pre_order(tree)
-	print post_order(tree)
-	print dfs(tree)
-	print bfs(tree)
 
 	
 
