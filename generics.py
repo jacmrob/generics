@@ -63,7 +63,7 @@ class HashTable:
 		# hash function for str or int keys
 		if type(key) is str:
 			return hash(key) % self.prime 
-		else if type(key) is int:
+		elif type(key) is int:
 			return key % self.prime
 		else:
 			raise StandardError("Key is not a valid type! Must be string or int.")
@@ -79,14 +79,14 @@ class HashTable:
 	def get(self, key):
 		index = self.hashf(key)
 		for (k,v,_) in self.table[index]:
-			if k = key:
+			if k == key:
 				return v 
 		raise StandardError("Key Error!  Key not found.") 
 
 	def delete(self, key):
 		index = self.hashf(key)
 		for i, (k,v,o) in enumerate(self.table[index]):
-			if k = key:
+			if k == key:
 				remove_index = i 
 				order_index = o 
 				break 
