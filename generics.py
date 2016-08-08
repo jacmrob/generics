@@ -1,6 +1,9 @@
 import sys, os 
 import numpy as np 
 
+
+## Custon data structures 
+
 class Stack:
 	'''
 	Stack class implemented using a python list
@@ -113,62 +116,116 @@ class HashTable:
 		return True 
 
 
-# todo: implement this better for binary tree
+## Trees and tree traversals 
+
 class Node:
-	def __init__(self, parent, children, data):
-		self.parent = parent
-		self.children = children 
+	def __init__(self, data):
 		self.data = data 
+		self.left = None
+		self.right = None 
 
 
+class BinaryTree:
+	def __init__(self):
+		self.node = None
+		self.height = -1 
 
-def dfs(G, r):
+	def insert(self, data):
+		if not self.node:
+			self.node = Node(data)
+			self.node.left = BinaryTree()
+			self.node.right = BinaryTree() 
+
+		elif data < self.node.data:
+			self.node.left.insert(data)
+
+		elif data > self.node.data:
+			self.node.right.insert(data)
+
+		else:
+			raise StandardError("Node already in tree")
+
+		# update height of subtree 
+		self.height = max(self.node.left.height, self.node.right.height) + 1 
+
+	def search(self, data):
+		if data == self.node.data:
+			return True 
+		elif data < self.data:
+			self.node.left.search(data)
+		elif data > self.data:
+			self.node.right.search(data)
+		return False 
+
+	def get_height(self):
+		return self.height 
+
+	def is_complete(self):
+		pass
+		# todo
+
+
+def dfs(tree):
+	# O(n)
 	s = Stack()
-	s.push(r)
 	visited = []
-	while s:
-		v = s.pop()
-		if v not in visited:
-			visited.append(v)
-			for child in v.children:
-				s.push(child)
+	if tree.node:
+		s.push(tree.node)
+	while not s.isEmpty():
+		n = s.pop()
+		if n and n not in visited:
+			visited.append(n.data)
+			if n.left.node:
+				s.push(n.left.node)
+			if n.right.node:
+				s.push(n.right.node)
 
-def bfs(G, r):
+	return visited
+
+def bfs(tree):
 	q = Queue()
-	q.enqueue(r)
 	visited = []
-	while q:
-		v = q.dequeue()
-		if v not in visited:
-			visited.append(v)
-			for child in v.children:
-				q.enqueue(child)
+	if tree.node:
+		q.enqueue(tree.node)
+	while not q.isEmpty():
+		 n = q.dequeue()
+		 if n and n not in visited:
+		 	visited.append(n.data)
+		 	if n.left.node:
+		 		q.enqueue(n.left.node)
+		 	if n.right.node:
+		 		q.enqueue(n.right.node)
+	return visited
 
-
-def pre_order(node, order):
-	order.append(node)
-	if node.children[0]:
-		pre_order(node.children[0], order)
-	if node.children[1]: 
-		pre_order(node.children[0], order)
-
+def pre_order(tree, order=[]):
+	if tree.node:
+		order.append(tree.node.data)
+		if tree.node.left:
+			pre_order(tree.node.left, order)
+		if tree.node.right: 
+			pre_order(tree.node.right, order)
 	return order 
 
-def post_order(node, order):
-	if node.children[0]:
-		post_order(node.children[0], order)
-	if node.children[1]:
-		post_order(node.children[1], order)
-	order.append(node)
+def post_order(tree, order=[]):
+	if tree.node:
+		if tree.node.left:
+			post_order(tree.node.left, order)
+		if tree.node.right:
+			post_order(tree.node.right, order)
+		order.append(tree.node.data)
 	return order 
 
-def in_order(node, order):
-	if node.children[0]:
-		in_order(node.children[0], order)
-	order.append(node)
-	if node.children[1]:
-		in_order(node.children[1], order)
+def in_order(tree, order=[]):
+	if tree.node:
+		if tree.node.left:
+			in_order(tree.node.left, order)
+		order.append(tree.node.data)
+		if tree.node.right:
+			in_order(tree.node.right, order)
 	return order 
+
+
+# misc algorithms
 
 def atoi(s):
 	sign = 1
@@ -192,14 +249,6 @@ def get_max_profit(prices):
 
 	return best_delta
 
-
-def factorial(n):
-	if n == 1:
-		return 1
-	else:
-		return n * factorial(n-1)
-
-
 def binary_search(array, x):
 	if len(array) <= 1:
 		return array[0] == x 
@@ -222,7 +271,20 @@ if __name__ == '__main__':
 	#print get_max_profit(prices)
 	#print get_max_profit(descending)
 
-	print binary_search(sorted(prices), 20)
+	#print binary_search(sorted(prices), 20)
+
+	tree = BinaryTree()
+	tree.insert(5)
+	tree.insert(2)
+	tree.insert(10)
+	tree.insert(7)
+	tree.insert(11)
+	print tree.get_height()
+	print in_order(tree)
+	print pre_order(tree)
+	print post_order(tree)
+	print dfs(tree)
+	print bfs(tree)
 
 	
 
