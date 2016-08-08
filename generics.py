@@ -45,7 +45,70 @@ class Queue:
 	def size(self):
 		return len(self.items())
 
+class HashTable:
+	def __init__(self, n):
+		self.prime = self.get_next_prime(n)
+		self.table = [[] for i in range(self.prime)]  
+		self.keys = []
+		self.values = []
+		self.order_id = 0
 
+	def hashf(self, key):
+		# hash function for str or int keys
+		if type(key) is str:
+			return hash(key) % self.prime 
+		else if type(key) is int:
+			return key % self.prime
+		else:
+			raise StandardError("Key is not a valid type! Must be string or int.")
+
+
+	def insert(self, key, value):
+		index = self.hashf(key)
+		self.table[index].append((key, value, self.order_id))
+		self.keys.append(key)
+		self.values.append(value)
+		self.order_id += 1 
+
+	def get(self, key):
+		index = self.hashf(key)
+		for (k,v,_) in self.table[index]:
+			if k = key:
+				return v 
+		raise StandardError("Key Error!  Key not found.") 
+
+	def delete(self, key):
+		index = self.hashf(key)
+		for i, (k,v,o) in enumerate(self.table[index]):
+			if k = key:
+				remove_index = i 
+				order_index = o 
+				break 
+			raise StandardError("Key Error! Key not found.")
+		del self.table[index][remove_index]
+		del self.keys[order_index]
+		del self.values[order_index]
+		 
+
+	def get_keys(self):
+		return self.keys
+
+	def get_values(self):
+		return self.values
+
+	def get_next_prime(self, n):
+		while not self.is_prime(n):
+			n += 1
+		return n 
+
+	def is_prime(self, n):
+		for i in range(2,int(n**0.5)+1):
+			if n % i == 0:
+				return False
+		return True 
+
+
+# todo: implement this better for binary tree
 class Node:
 	def __init__(self, parent, children, data):
 		self.parent = parent
@@ -78,13 +141,28 @@ def bfs(G, r):
 
 
 def pre_order(node, order):
-	order = []
-	order.append(root)
-	if root.children[0]:
-		pre_order(root.children[0], order)
-	if root.children[1]: 
-		pre_order(root.children[0], order)
+	order.append(node)
+	if node.children[0]:
+		pre_order(node.children[0], order)
+	if node.children[1]: 
+		pre_order(node.children[0], order)
 
+	return order 
+
+def post_order(node, order):
+	if node.children[0]:
+		post_order(node.children[0], order)
+	if node.children[1]:
+		post_order(node.children[1], order)
+	order.append(node)
+	return order 
+
+def in_order(node, order):
+	if node.children[0]:
+		in_order(node.children[0], order)
+	order.append(node)
+	if node.children[1]:
+		in_order(node.children[1], order)
 	return order 
 
 def atoi(s):
@@ -140,4 +218,6 @@ if __name__ == '__main__':
 	#print get_max_profit(descending)
 
 	print binary_search(sorted(prices), 20)
+
+	root = Node()
 
