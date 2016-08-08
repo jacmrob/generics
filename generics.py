@@ -45,7 +45,13 @@ class Queue:
 	def size(self):
 		return len(self.items())
 
+
 class HashTable:
+	'''
+	Hash table implemented using python lists
+	valid key types are strs and ints 
+	utilizes a universal hash function w/ prime > size of set to hash (n)
+	'''
 	def __init__(self, n):
 		self.prime = self.get_next_prime(n)
 		self.table = [[] for i in range(self.prime)]  
@@ -88,7 +94,6 @@ class HashTable:
 		del self.table[index][remove_index]
 		del self.keys[order_index]
 		del self.values[order_index]
-		 
 
 	def get_keys(self):
 		return self.keys
@@ -219,5 +224,5 @@ if __name__ == '__main__':
 
 	print binary_search(sorted(prices), 20)
 
-	root = Node()
+	
 
