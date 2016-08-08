@@ -279,6 +279,7 @@ if __name__ == '__main__':
 	tree.insert(10)
 	tree.insert(7)
 	tree.insert(11)
+	tree.insert(100)
 	print tree.get_height()
 	print in_order(tree)
 	print pre_order(tree)
