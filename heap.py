@@ -29,8 +29,9 @@ class Heap:
 			self.fast_swap(self.elements, i, swap_i)
 			i = swap_i
 
-	def insert(self, node):
-		self.elements.append(node)
+	def insert(self, priority, data):
+		n = HeapNode(priority, data)
+		self.elements.append(n)
 		self.length += 1 
 		self.complete = not self.complete  # flip sign
 		self.upheap(self.length)
@@ -55,8 +56,7 @@ class Heap:
 def build_heap_from_map(input_map):
 	heap = Heap()
 	for k,v in input_map.iteritems():
-		n = HeapNode(k, v)
-		heap.insert(n)
+		heap.insert(k, v)
 
 	return heap 
 
