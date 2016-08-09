@@ -14,7 +14,7 @@ class Heap:
 		self.length = -1
 
 	def is_empty(self):
-		return self.length == 0 
+		return self.length == -1 
 
 	def upheap(self, i):
 		# left children are always odd, right children are always even, root is 0 
@@ -43,7 +43,7 @@ class Heap:
 		self.upheap(self.length)
 
 	def remove_min(self):
-		self.fast_swap(self.elements, 1, self.length)  # swap first and last thing
+		self.fast_swap(self.elements, 0, self.length)  # swap first and last thing
 		m = self.elements.pop()
 		self.downheap()
 		self.length -= 1 
