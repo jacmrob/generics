@@ -88,6 +88,25 @@ class AVL_tree:
 		else:
 			self.height = -1 
 
+	def rotate_right(self):
+		new_root = self.node.left.node
+		new_left_sub = new_root.right.node
+		old_root = self.node 
+
+		self.node = new_root 
+		old_root.left.node = new_left_sub
+		new_root.right.node = old_root 
+
+	def rotate_left(self):
+		new_root = self.node.right.node 
+		new_left_sub = new_root.left.node 
+		old_root = self.node 
+
+		self.node = new_root 
+		old_root.right.node = new_left_sub
+		new_root.left.node = old_root 
+
+
 	def delete(self, data):
 		pass 
 
